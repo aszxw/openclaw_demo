@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>时钟</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .clock {
+      text-align: center;
+      color: #fff;
+    }
+
+    .time {
+      font-size: 8rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 40px rgba(79, 172, 254, 0.5);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .date {
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 1rem;
+      letter-spacing: 0.2em;
+    }
+
+    .seconds {
+      color: #4facfe;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <div class="time">
+      <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds" class="seconds">00</span>
+    </div>
+    <div class="date" id="date">Monday, January 1</div>
+  </div>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+      
+      const options = { 
+        weekday: 'long', 
+        month: 'long', 
+        day: 'numeric',
+        locale: 'zh-CN'
+      };
+      document.getElementById('date').textContent = now.toLocaleDateString('zh-CN', options);
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>

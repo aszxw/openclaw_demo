@@ -282,7 +282,11 @@
 
         read();
       }).catch(err => {
-        statusText.textContent = '错误: ' + err.message;
+        let msg = err.message;
+        if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+          msg = '网络请求失败，可能是跨域问题。建议：1) 在本地开发环境运行；2) 联系后端添加 CORS 头部';
+        }
+        statusText.textContent = '错误: ' + msg;
         startBtn.disabled = false;
       });
     }
